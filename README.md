@@ -127,6 +127,7 @@ src/
 │   ├── Exceptions/          # Excepciones personalizadas
 │   │   └── InvalidInputException.cs
 │   └── Program.cs           # Entry point
+tests/
 └── BowlingScoreCalculator.Tests/
     ├── Unit/                # Tests unitarios
     │   ├── ScoreCalculatorTests.cs
@@ -138,22 +139,11 @@ src/
 
 ## 🧪 Testing
 
+Se utiliza la librería de NUnit
+
 ### Cobertura de Tests
 
 - ✅ Tests unitarios para lógica de cálculo
 - ✅ Tests de validación de entrada
 - ✅ Tests de casos edge (juego perfecto, ceros, fouls)
 - ✅ Tests de integración end-to-end
-
-### Ejecutar tests específicos
-
-```bash
-# Solo tests unitarios
-dotnet test --filter "FullyQualifiedName~Unit"
-
-# Solo tests de integración
-dotnet test --filter "FullyQualifiedName~Integration"
-
-# Con verbosidad detallada
-dotnet test --logger "console;verbosity=detailed"
-```

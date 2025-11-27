@@ -155,7 +155,7 @@
             Assert.Multiple(() =>
             {
                 // Assert
-                Assert.That(player1.TotalScore, Is.EqualTo(100)); // 10 frames * 10 pins each
+                Assert.That(player1.TotalScore, Is.EqualTo(145));
                 Assert.That(player2.TotalScore, Is.EqualTo(0));
             });
         }

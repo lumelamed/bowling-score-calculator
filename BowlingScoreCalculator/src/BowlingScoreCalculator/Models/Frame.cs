@@ -36,18 +36,16 @@
                     if (this.Rolls.Count < 2)
                         return false;
 
-                    if (this.IsStrike || this.IsSpare)
-                    {
-                        return this.Rolls.Count == 3;
-                    }
+                    if (this.Rolls[0].PinsKnocked == 10 || this.Rolls[0].PinsKnocked + this.Rolls[1].PinsKnocked == 10)
+                        return Rolls.Count >= 3;
 
-                    return this.Rolls.Count == 2;
+                    return this.Rolls.Count >= 2;
                 }
 
-                if (this.IsStrike)
+                if (this.Rolls.Count > 0 && this.Rolls[0].PinsKnocked == 10)
                     return true;
 
-                return this.Rolls.Count == 2;
+                return this.Rolls.Count >= 2;
             }
         }
 
