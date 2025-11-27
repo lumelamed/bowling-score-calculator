@@ -22,8 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Integrations\" />
-    <Folder Include="Unit\" />
+    <ProjectReference Include="..\..\src\BowlingScoreCalculator\BowlingScoreCalculator.csproj" />
   </ItemGroup>
 
 </Project>
