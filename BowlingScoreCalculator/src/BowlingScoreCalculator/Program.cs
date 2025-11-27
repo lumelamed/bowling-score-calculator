@@ -22,14 +22,14 @@
 
                 string filePath = args[0];
 
-                /*var lines = FileReader.ReadFile(filePath);
+                var lines = FileReader.ReadFile(filePath);
                 var players = GameParser.ParseGame(lines);
 
                 ScoreCalculator.CalculateScores(players);
 
                 var output = OutputFormatter.FormatGame(players);
 
-                Console.WriteLine(output);*/
+                Console.WriteLine(output);
             }
             catch (InvalidInputException ex)
             {

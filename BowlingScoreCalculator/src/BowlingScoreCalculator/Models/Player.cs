@@ -12,7 +12,7 @@
                 throw new ArgumentException("Player name cannot be empty", nameof(name));
 
             this.Name = name;
-            this.Frames = new List<Frame>();
+            this.Frames = [];
 
             for (int i = 1; i <= 10; i++)
             {
@@ -30,6 +30,8 @@
         }
 
         public bool IsGameComplete => this.Frames.All(f => f.IsComplete);
+
+        public List<Roll> AllRolls => this.Frames.SelectMany(f => f.Rolls).ToList();
 
         public int TotalScore => this.Frames.Last().CumulativeScore;
     }

@@ -13,7 +13,5 @@
         }
 
         public bool IsFoul => this.PinsKnocked == 0;
-
-        public override string ToString() => this.IsFoul ? "F" : this.PinsKnocked.ToString();
     }
 }
