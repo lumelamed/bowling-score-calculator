@@ -2,9 +2,9 @@
 {
     public class Frame
     {
-        public int FrameNumber { get; }
+        public int FrameNumber { get; init; }
 
-        public List<Roll> Rolls { get; }
+        public List<Roll> Rolls { get; init; } = [];
 
         public int Score { get; set; }
 
@@ -16,9 +16,6 @@
                 throw new ArgumentException("Frame number must be between 1 and 10", nameof(frameNumber));
 
             this.FrameNumber = frameNumber;
-            this.Rolls = [];
-            this.Score = 0;
-            this.CumulativeScore = 0;
         }
 
         public bool IsStrike => this.Rolls.Count > 0 && this.Rolls.First().PinsKnocked == 10;

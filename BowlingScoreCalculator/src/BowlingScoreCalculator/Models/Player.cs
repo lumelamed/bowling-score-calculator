@@ -2,7 +2,7 @@
 {
     public class Player
     {
-        public string Name { get; }
+        public string Name { get; init; }
 
         public List<Frame> Frames { get; }
 

@@ -1,5 +1,6 @@
 ﻿namespace BowlingScoreCalculator.Services
 {
+    using BowlingScoreCalculator.Extensions;
     using BowlingScoreCalculator.Models;
 
     public static class ScoreCalculator
@@ -18,76 +19,38 @@
             int rollIndex = 0;
             int cumulativeScore = 0;
 
-            for (int frameIndex = 0; frameIndex < 10; frameIndex++)
+            for (int frameNumber = 0; frameNumber < 10; frameNumber++)
             {
-                var frame = player.Frames[frameIndex];
+                var frame = player.Frames[frameNumber];
 
-                if (frameIndex < 9)
+                if (frameNumber < 9)
                 {
-                    if (IsStrike(rolls, rollIndex))
+                    if (rolls.HasStrikeAt(rollIndex))
                     {
-                        frame.Score = 10 + GetStrikeBonus(rolls, rollIndex);
-                        rollIndex += 1;
+                        frame.Score = rolls.ScoreStrike(rollIndex);
+                        rollIndex++;
                     }
-                    else if (IsSpare(rolls, rollIndex))
+                    else if (rolls.HasSpareAt(rollIndex))
                     {
-                        frame.Score = 10 + GetSpareBonus(rolls, rollIndex);
+                        frame.Score = rolls.ScoreSpare(rollIndex);
                         rollIndex += 2;
                     }
                     else
                     {
-                        frame.Score = GetPinsInRoll(rolls, rollIndex) +
-                                      GetPinsInRoll(rolls, rollIndex + 1);
+                        frame.Score = rolls.ScoreOpen(rollIndex);
                         rollIndex += 2;
                     }
                 }
                 else
                 {
-                    frame.Score = GetPinsInRoll(rolls, rollIndex) +
-                                  GetPinsInRoll(rolls, rollIndex + 1) +
-                                  GetPinsInRoll(rolls, rollIndex + 2);
+                    frame.Score = rolls.GetPinsAt(rollIndex)
+                                + rolls.GetPinsAt(rollIndex + 1)
+                                + rolls.GetPinsAt(rollIndex + 2);
                 }
 
                 cumulativeScore += frame.Score;
                 frame.CumulativeScore = cumulativeScore;
             }
-        }
-
-        private static bool IsStrike(List<Roll> rolls, int rollIndex)
-        {
-            return rollIndex < rolls.Count && rolls[rollIndex].PinsKnocked == 10;
-        }
-
-        private static bool IsSpare(List<Roll> rolls, int rollIndex)
-        {
-            return rollIndex + 1 < rolls.Count &&
-                   rolls[rollIndex].PinsKnocked + rolls[rollIndex + 1].PinsKnocked == 10;
-        }
-
-        private static int GetStrikeBonus(List<Roll> rolls, int rollIndex)
-        {
-            int bonus = 0;
-
-            if (rollIndex + 1 < rolls.Count)
-                bonus += rolls[rollIndex + 1].PinsKnocked;
-
-            if (rollIndex + 2 < rolls.Count)
-                bonus += rolls[rollIndex + 2].PinsKnocked;
-
-            return bonus;
-        }
-
-        private static int GetSpareBonus(List<Roll> rolls, int rollIndex)
-        {
-            if (rollIndex + 2 < rolls.Count)
-                return rolls[rollIndex + 2].PinsKnocked;
-
-            return 0;
-        }
-
-        private static int GetPinsInRoll(List<Roll> rolls, int rollIndex)
-        {
-            return rollIndex < rolls.Count ? rolls[rollIndex].PinsKnocked : 0;
         }
     }
 }
