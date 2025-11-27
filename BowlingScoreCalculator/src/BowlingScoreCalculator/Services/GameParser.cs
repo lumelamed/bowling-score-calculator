@@ -36,7 +36,8 @@
 
                     var player = GetPlayer(playerDict, playerName);
 
-                    var roll = new Roll(TryParsePins(rollValue));
+                    var (pinsKnocked, isFoul) = TryParsePins(rollValue);
+                    var roll = new Roll(pinsKnocked, isFoul);
 
                     player.AddRoll(roll);
                 }
@@ -76,7 +77,7 @@
             return player;
         }
 
-        private static int TryParsePins(string input)
+        private static (int, bool) TryParsePins(string input)
         {
             if (string.IsNullOrWhiteSpace(input))
                 throw new ArgumentException("Roll input cannot be empty", nameof(input));
@@ -84,13 +85,13 @@
             input = input.Trim().ToUpper();
 
             if (input == "F")
-                return 0;
+                return (0, true);
 
             if (int.TryParse(input, out int pins))
             {
                 if (pins < 0 || pins > 10)
                     throw new ArgumentException("Pins knocked must be between 0 and 10", nameof(input));
-                return pins;
+                return (pins, false);
             }
 
             throw new ArgumentException($"Invalid roll value: {input}", nameof(input));

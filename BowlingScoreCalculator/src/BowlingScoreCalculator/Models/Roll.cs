@@ -4,14 +4,15 @@
     {
         public int PinsKnocked { get; private set; }
 
-        public Roll(int pinsKnocked)
+        public bool IsFoul { get; private set; }
+
+        public Roll(int pinsKnocked, bool isFoul = false)
         {
             if (pinsKnocked < 0 || pinsKnocked > 10)
                 throw new ArgumentException("Pins knocked must be between 0 and 10");
 
             this.PinsKnocked = pinsKnocked;
+            this.IsFoul = isFoul;
         }
-
-        public bool IsFoul => this.PinsKnocked == 0;
     }
 }
